@@ -1,0 +1,11 @@
+version: '3.1'
+
+services:
+  db:
+    image: postgres:latest
+    restart: always
+    environment:
+      POSTGRES_DB: weenat
+      POSTGRES_HOST_AUTH_METHOD: trust
+    ports:
+      - 5432:5432/tcp
