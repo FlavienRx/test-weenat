@@ -1,16 +1,16 @@
-from urllib.parse import quote_plus
 from datetime import datetime, timedelta
+from urllib.parse import quote_plus
 
 import pytest
 from fastapi import status
 from fastapi.testclient import TestClient
-from sqlmodel import Session, SQLModel, create_engine, select
+from sqlmodel import Session, SQLModel, create_engine
 from sqlmodel.pool import StaticPool
 
 from .database import get_session
+from .enumerations import Label
 from .main import app
 from .models import Datalogguer, Measurement
-from .enumerations import Label
 
 
 @pytest.fixture(name="session")
@@ -190,6 +190,7 @@ def test_fetch_max_aggregate_data(client: TestClient):
 
     for item in data:
         assert item["value"] == 4.0
+
 
 @pytest.mark.usefixtures("setup_db")
 def test_fetch_day_aggregate_data(client: TestClient):

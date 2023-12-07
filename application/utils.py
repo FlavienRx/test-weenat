@@ -7,7 +7,11 @@ from sqlmodel import select
 
 from .database import Session, get_session
 from .enumerations import Label
-from .models import DataRecordAggregateResponse, DataRecordResponse, Measurement
+from .models import (
+    DataRecordAggregateResponse,
+    DataRecordResponse,
+    Measurement
+)
 
 
 def common_parameters(
@@ -35,7 +39,7 @@ def get_measurements(
 
 def get_raw_data(
     commons: Annotated[list, Depends(common_parameters)],
-    data_structure: DataRecordResponse | DataRecordAggregateResponse
+    data_structure: DataRecordResponse | DataRecordAggregateResponse,
 ) -> list[DataRecordResponse]:
     data = []
 
@@ -53,7 +57,7 @@ def get_raw_data(
                     time_slot=measure.measured_at,
                     value=getattr(measure, attr),
                 )
-            
+
             data.append(new_data)
 
     return data
